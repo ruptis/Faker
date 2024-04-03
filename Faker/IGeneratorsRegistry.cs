@@ -1,8 +1,11 @@
-﻿namespace Faker;
+﻿using System.Collections;
+namespace Faker;
 
 public interface IGeneratorsRegistry
 {
     void Register<T>(IGenerator<T> generator);
+    void Register(Type type, IGenerator generator);
+    
     IGenerator<T> Get<T>();
     IGenerator Get(Type type);
     

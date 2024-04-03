@@ -1,6 +1,7 @@
-﻿namespace Faker;
+﻿using System.Diagnostics.CodeAnalysis;
+namespace Faker;
 
 public interface IContructionInfoProvider
 {
-    ConstructionInfo Get(Type type);
+    bool TryGet(Type type, [MaybeNullWhen(false)] out ConstructionInfo info);
 }
