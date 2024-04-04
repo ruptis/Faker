@@ -1,15 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-namespace Faker;
+namespace FakerLib.Construction;
 
-public sealed class ContructionInfoProvider : IContructionInfoProvider
+internal sealed class ContructionInfoProvider
 {
-    private readonly Dictionary<Type, ConstructionInfo?> _cache = new();
-
     public bool TryGet(Type type, [MaybeNullWhen(false)] out ConstructionInfo info)
     {
-        if (_cache.TryGetValue(type, out info))
-            return info is not null;
+        info = null;
 
         ConstructorInfo? constructor = GetConstructor(type);
         if (constructor is null)
@@ -33,7 +30,6 @@ public sealed class ContructionInfoProvider : IContructionInfoProvider
         }
 
         info = new ConstructionInfo(type, constructor, parameters, properties, fields);
-        _cache[type] = info;
 
         return true;
     }
@@ -45,7 +41,8 @@ public sealed class ContructionInfoProvider : IContructionInfoProvider
         {
             0 => null,
             1 => constructors[0],
-            _ => constructors.OrderByDescending(c => c.GetParameters().Length).First()
+            _ => constructors.OrderByDescending(c => c.GetParameters().Length)
+                .FirstOrDefault(c => c.GetParameters().All(p => p.ParameterType != type)),
         };
     }
 

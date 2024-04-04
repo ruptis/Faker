@@ -1,5 +1,5 @@
 ﻿using System.Text;
-namespace Faker;
+namespace FakerLib.Utils;
 
 internal sealed class CircularDependencyAnalyzer
 {
@@ -10,11 +10,8 @@ internal sealed class CircularDependencyAnalyzer
     
     public bool Validate(Type type)
     {
-        if (!_visited.Add(type))
-            return false;
-
         _path.Push(type);
-        return true;
+        return _visited.Add(type);
     }
     
     public void Remove(Type type)

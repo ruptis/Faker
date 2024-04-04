@@ -1,4 +1,4 @@
-﻿namespace Faker;
+﻿namespace FakerLib;
 
 public interface IGenerator
 {
