@@ -19,7 +19,7 @@ public sealed class FakerConfig
     public void Add(Type type, IGenerator generator) => _generators[type] = generator;
     public void AddLazy(Type type, Type generatorType)
     {
-        if (!type.IsGenericTypeDefinition && type.IsGenericType)
+        if (type is { IsGenericTypeDefinition: false, IsGenericType: true })
             throw new ArgumentException("Type must be a generic type definition");
 
         _generators.Remove(type);

@@ -1,6 +1,7 @@
-﻿namespace FakerLib.BaseGenerators;
+﻿using FakerLib;
+namespace AdditionalGenerators;
 
-internal class DictionaryGenerator<TKey, TValue> : IGenerator<Dictionary<TKey, TValue>> where TKey : notnull
+public class DictionaryGenerator<TKey, TValue> : IGenerator<Dictionary<TKey, TValue>> where TKey : notnull
 {
     private readonly Random _random = new();
 
