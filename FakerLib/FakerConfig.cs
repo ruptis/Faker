@@ -52,20 +52,22 @@ public sealed class FakerConfig
         {
             if (!string.IsNullOrEmpty(@namespace) && type.Namespace?.EndsWith(@namespace) is false)
                 continue;
-            
+
             if (type.IsAbstract || type.IsInterface || type.GetConstructor(Type.EmptyTypes) is null)
                 continue;
-            
+
             Type? interfaceType = type.GetInterfaces()
                 .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IGenerator<>));
-            
+
             if (interfaceType is null)
                 continue;
-            
+
             Type generatedType = interfaceType.GetGenericArguments()[0];
 
             if (type.IsGenericType)
-                AddLazy(generatedType.IsGenericType ? generatedType.GetGenericTypeDefinition() : generatedType, type);
+                AddLazy(generatedType.IsGenericType ? generatedType.GetGenericTypeDefinition() :
+                    generatedType.IsArray ? typeof(Array) :
+                    generatedType, type);
             else
                 Add(generatedType, (IGenerator)Activator.CreateInstance(type)!);
         }

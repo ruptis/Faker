@@ -8,7 +8,8 @@ public record UserDto(
     Uri Website,
     string PhoneNumber,
     IEnumerable<GameDto> Games,
-    Dictionary<string, string> AdditionalInfo)
+    Dictionary<string, string> AdditionalInfo,
+    int[] Numbers)
 {
     public override string ToString() =>
         $"User:" +
@@ -21,5 +22,6 @@ public record UserDto(
         $"\n  Games:" +
         $"\n{string.Join("\n", Games.Select(game => $"    {game.ToString().Replace("\n", "\n    ")}"))}" +
         $"\n  AdditionalInfo:" +
-        $"\n{string.Join("\n", AdditionalInfo.Select(pair => $"    {pair.Key}: {pair.Value}"))}";
+        $"\n{string.Join("\n", AdditionalInfo.Select(pair => $"    {pair.Key}: {pair.Value}"))}" +
+        $"\n  Numbers: {string.Join(", ", Numbers)}";
 }

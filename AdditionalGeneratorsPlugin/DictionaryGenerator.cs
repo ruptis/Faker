@@ -1,5 +1,5 @@
 ﻿using FakerLib;
-namespace AdditionalGenerators;
+namespace AdditionalGeneratorsPlugin;
 
 public class DictionaryGenerator<TKey, TValue> : IGenerator<Dictionary<TKey, TValue>> where TKey : notnull
 {

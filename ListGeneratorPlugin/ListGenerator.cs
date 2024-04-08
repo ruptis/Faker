@@ -1,4 +1,5 @@
-﻿namespace FakerLib.BaseGenerators;
+﻿using FakerLib;
+namespace ListGeneratorPlugin;
 
 internal class ListGenerator<T> : IGenerator<List<T>> 
 {

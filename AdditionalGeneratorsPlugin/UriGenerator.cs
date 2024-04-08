@@ -1,5 +1,5 @@
 ﻿using FakerLib;
-namespace AdditionalGenerators;
+namespace AdditionalGeneratorsPlugin;
 
 public class UriGenerator : IGenerator<Uri>
 {

@@ -11,7 +11,14 @@ internal sealed class GeneratorsRegistry(IDictionary<Type, IGenerator> generator
     {
         var genericArguments = type.GetGenericArguments();
         if (type.IsGenericType)
+        {
             type = type.GetGenericTypeDefinition();
+        }
+        else if (type.IsArray)
+        {
+            genericArguments = [type.GetElementType()];
+            type = typeof(Array);
+        }
 
         if (lazyGeneratorsTypes.TryGetValue(type, out Type? lazyGeneratorType))
         {
@@ -19,7 +26,9 @@ internal sealed class GeneratorsRegistry(IDictionary<Type, IGenerator> generator
                 genericArguments.Length == 0 ?
                     lazyGeneratorType.MakeGenericType(type) :
                     lazyGeneratorType.MakeGenericType(genericArguments) :
-                lazyGeneratorType;
+                lazyGeneratorType.IsArray ?
+                    lazyGeneratorType.MakeGenericType(genericArguments) :
+                    lazyGeneratorType;
             generator = (IGenerator)Activator.CreateInstance(baseGeneratorType)!;
             return true;
         }
