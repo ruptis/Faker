@@ -14,10 +14,28 @@ internal class DtoGeneratorFactory(FakerConfig config)
             var result = (T)info.Constructor.Invoke(parameters);
 
             foreach (PropertyInfo property in info.Properties)
-                property.SetValue(result, ResolveMember(property.PropertyType, property.Name, faker));
+            {
+                try
+                {
+                    property.SetValue(result, ResolveMember(property.PropertyType, property.Name, faker));
+                }
+                catch
+                {
+                   // ignored
+                }
+            }
 
             foreach (FieldInfo field in info.Fields)
-                field.SetValue(result, ResolveMember(field.FieldType, field.Name, faker));
+            {
+                try
+                {
+                    field.SetValue(result, ResolveMember(field.FieldType, field.Name, faker));
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
 
             return result;
         }

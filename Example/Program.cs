@@ -10,8 +10,7 @@ builder
     .LoadFromAssembly(Assembly.Load(nameof(ListGeneratorPlugin)))
     .Add<UserDto, string, NameGenerator>(u => u.Name)
     .Add<UserDto, int>(u => u.Age, new AgeGenerator(20, 40))
-    .Add<UserDto, Dictionary<string, string>, AdditionalInformationGenerator>(u => u.AdditionalInfo)
-    .Add<GameDto, GameDtoGenerator>();
+    .Add<UserDto, Dictionary<string, string>, AdditionalInformationGenerator>(u => u.AdditionalInfo);
 
 Faker faker = builder.Build();
 

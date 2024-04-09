@@ -1,9 +1,9 @@
 ﻿using System.Text;
 namespace FakerLib.Utils;
 
-internal sealed class CircularDependencyAnalyzer
+internal sealed class CircularDependencyAnalyzer(int depthLimit = 10)
 {
-    private readonly HashSet<Type> _visited = [];
+    private readonly Dictionary<Type, int> _visitedCounters = new();
     private readonly Stack<Type> _path = new();
     
     private readonly StringBuilder _builder = new();
@@ -11,19 +11,29 @@ internal sealed class CircularDependencyAnalyzer
     public bool Validate(Type type)
     {
         _path.Push(type);
-        return _visited.Add(type);
+        if (!_visitedCounters.TryGetValue(type, out var depth))
+        {
+            _visitedCounters[type] = 1;
+            return true;
+        }
+        
+        if (depth >= depthLimit)
+            return false;
+        
+        _visitedCounters[type] = depth + 1;
+        return true;
     }
     
     public void Remove(Type type)
     {
-        _visited.Remove(type);
+        if (_visitedCounters.TryGetValue(type, out var depth))
+        {
+            if (depth == 1)
+                _visitedCounters.Remove(type);
+            else
+                _visitedCounters[type] = depth - 1;
+        }
         _path.Pop();
-    }
-
-    public void Reset()
-    {
-        _visited.Clear();
-        _path.Clear();
     }
 
     public override string ToString()

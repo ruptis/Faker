@@ -8,9 +8,21 @@ public sealed class FakerConfig
     private readonly Dictionary<Type, IGenerator> _generators = new();
     private readonly Dictionary<Type, Type> _lazyGeneratorsTypes = new();
     private readonly Dictionary<Type, Dictionary<string, IGenerator>> _typeMemberGenerators = new();
+    private int _circularDependencyDepthLimit = 10;
 
     internal IDictionary<Type, IGenerator> Generators => _generators;
     internal IReadOnlyDictionary<Type, Type> LazyGeneratorsTypes => _lazyGeneratorsTypes;
+    internal int CircularDependencyDepthLimit
+    {
+        get => _circularDependencyDepthLimit;
+        set
+        {
+            if (value <= 0)
+                throw new ArgumentOutOfRangeException(nameof(value), "Depth limit must be greater than 0");
+            
+            _circularDependencyDepthLimit = value;
+        }
+    }
 
     public FakerConfig() => LoadFromAssembly(Assembly.GetExecutingAssembly(), nameof(BaseGenerators));
 

@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdditionalGeneratorsPlugin"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListGeneratorPlugin", "ListGeneratorPlugin\ListGeneratorPlugin.csproj", "{E474861C-B87B-4698-9ACA-A1F84AAEACFF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakerLib.Tests", "FakerLib.Tests\FakerLib.Tests.csproj", "{5A2E553B-3A51-43B0-AEC4-86D3BCD4045D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{E474861C-B87B-4698-9ACA-A1F84AAEACFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E474861C-B87B-4698-9ACA-A1F84AAEACFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E474861C-B87B-4698-9ACA-A1F84AAEACFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A2E553B-3A51-43B0-AEC4-86D3BCD4045D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A2E553B-3A51-43B0-AEC4-86D3BCD4045D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A2E553B-3A51-43B0-AEC4-86D3BCD4045D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A2E553B-3A51-43B0-AEC4-86D3BCD4045D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

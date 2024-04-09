@@ -49,4 +49,10 @@ public sealed class FakerBuilder
         _config.LoadFromAssembly(assembly, @namespace);
         return this;
     }
+    
+    public FakerBuilder SetCircularDependencyDepthLimit(int limit)
+    {
+        _config.CircularDependencyDepthLimit = limit;
+        return this;
+    }
 }

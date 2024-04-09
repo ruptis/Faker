@@ -2,9 +2,9 @@
 using FakerLib.Utils;
 namespace FakerLib;
 
-public class Faker : IFaker
+public sealed class Faker : IFaker
 {
-    private readonly CircularDependencyAnalyzer _circularDependencyAnalyzer = new();
+    private readonly CircularDependencyAnalyzer _circularDependencyAnalyzer;
     private readonly GeneratorsRegistry _generatorsRegistry;
     private readonly DefaultGeneratorFactory _defaultGeneratorFactory = new();
     private readonly DtoGeneratorFactory _dtoGeneratorFactory;
@@ -12,6 +12,7 @@ public class Faker : IFaker
     public Faker(FakerConfig? config = null)
     {
         config ??= new FakerConfig();
+        _circularDependencyAnalyzer = new CircularDependencyAnalyzer(config.CircularDependencyDepthLimit);
         _dtoGeneratorFactory = new DtoGeneratorFactory(config);
         _generatorsRegistry = new GeneratorsRegistry(config.Generators, config.LazyGeneratorsTypes);
     }
